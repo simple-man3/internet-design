@@ -5,7 +5,8 @@ namespace App\Clients\Tickets;
 use App\Clients\Api;
 use App\Clients\Configuration;
 use App\Clients\RequestBuilder;
-use App\Data\TicketsProvider\Responses\EventsData;
+use App\Data\TicketsProvider\Responses\EventData;
+use App\Data\TicketsProvider\Responses\PlaceData;
 use App\Data\TicketsProvider\Responses\ReserveData;
 use App\Data\TicketsProvider\Responses\ShowsData;
 use App\Exceptions\ApiException;
@@ -30,7 +31,7 @@ class TestApiClient extends Api implements ITickets
     {
         return $this->send(
             $this->getShowsRequest(),
-            fn ($content) => ShowsData::collect($content['response'], Collection::class),
+            fn($content) => ShowsData::collect($content['response'], Collection::class),
         );
     }
 
@@ -46,13 +47,15 @@ class TestApiClient extends Api implements ITickets
     }
 
     /**
+     * @return Collection<EventData>
+     *
      * @throws ApiException
      */
     public function events(int $showId): Collection
     {
         return $this->send(
             $this->getEventRequest($showId),
-            fn ($content) => EventsData::collect($content['response'], Collection::class),
+            fn($content) => EventData::collect($content['response'], Collection::class),
         );
     }
 
@@ -67,10 +70,28 @@ class TestApiClient extends Api implements ITickets
         );
     }
 
+    /**
+     * @return Collection<PlaceData>
+     *
+     * @throws ApiException
+     */
     public function places(int $eventId): Collection
     {
-        return collect();
+        return $this->send(
+            $this->getPlacesRequest($eventId),
+            fn($content) => PlaceData::collect($content['response'], Collection::class),
+        );
+    }
 
+    private function getPlacesRequest(int $eventId): RequestBuilder
+    {
+        return new RequestBuilder(
+            '/events/' . $eventId . '/places',
+            'GET',
+            [
+                'Authorization' => $this->token
+            ]
+        );
     }
 
     public function reserve(int $eventId): ReserveData

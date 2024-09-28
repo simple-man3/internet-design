@@ -7,7 +7,7 @@ use Spatie\LaravelData\Attributes\WithCast;
 use Spatie\LaravelData\Casts\DateTimeInterfaceCast;
 use Spatie\LaravelData\Data;
 
-class EventsData extends Data
+class EventData extends Data
 {
     public function __construct(
         public readonly int    $id,

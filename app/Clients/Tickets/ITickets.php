@@ -2,8 +2,8 @@
 
 namespace App\Clients\Tickets;
 
-use App\Data\TicketsProvider\Responses\EventsData;
-use App\Data\TicketsProvider\Responses\PlacesData;
+use App\Data\TicketsProvider\Responses\EventData;
+use App\Data\TicketsProvider\Responses\PlaceData;
 use App\Data\TicketsProvider\Responses\ReserveData;
 use App\Data\TicketsProvider\Responses\ShowsData;
 use Illuminate\Support\Collection;
@@ -16,12 +16,12 @@ interface ITickets
     public function shows(): Collection;
 
     /**
-     * @return Collection<EventsData>
+     * @return Collection<EventData>
      */
     public function events(int $showId): Collection;
 
     /**
-     * @return Collection<PlacesData>
+     * @return Collection<PlaceData>
      */
     public function places(int $eventId): Collection;
 

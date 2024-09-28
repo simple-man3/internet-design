@@ -6,7 +6,7 @@ use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Attributes\MapOutputName;
 use Spatie\LaravelData\Data;
 
-class PlacesData extends Data
+class PlaceData extends Data
 {
     public function __construct(
         public readonly int   $id,

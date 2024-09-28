@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Clients\Tickets\ITickets;
+use App\Data\TicketsProvider\Responses\PlaceData;
 use App\Data\TicketsProvider\Responses\ShowsData;
 use Illuminate\Support\Collection;
 
@@ -26,5 +27,13 @@ final class TicketService
     public function events(int $showId): Collection
     {
         return $this->client->events($showId);
+    }
+
+    /**
+     * @return Collection<PlaceData>
+     */
+    public function places(int $eventId): Collection
+    {
+        return $this->client->places($eventId);
     }
 }
