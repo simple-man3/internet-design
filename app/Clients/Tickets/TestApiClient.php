@@ -5,6 +5,7 @@ namespace App\Clients\Tickets;
 use App\Clients\Api;
 use App\Clients\Configuration;
 use App\Clients\RequestBuilder;
+use App\Data\TicketsProvider\Requests\ReserveRequest;
 use App\Data\TicketsProvider\Responses\EventData;
 use App\Data\TicketsProvider\Responses\PlaceData;
 use App\Data\TicketsProvider\Responses\ReserveData;
@@ -94,8 +95,34 @@ class TestApiClient extends Api implements ITickets
         );
     }
 
-    public function reserve(int $eventId): ReserveData
+    /**
+     * @throws ApiException
+     */
+    public function reserve(ReserveRequest $request, int $eventId): ReserveData
     {
-        return new ReserveData();
+        return $this->send(
+            $this->getReverseRequest($request, $eventId),
+            function (array $content) {
+                if (isset($content['error'])) {
+                    throw new ApiException($content['error']);
+                }
+
+                return ReserveData::from($content['response']);
+            }
+        );
+    }
+
+    private function getReverseRequest(ReserveRequest $request, int $eventId): RequestBuilder
+    {
+        return new RequestBuilder(
+            '/events/' . $eventId . '/reserve',
+            'POST',
+            [
+                'Authorization' => $this->token,
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ],
+            $request->toArray(),
+            true,
+        );
     }
 }

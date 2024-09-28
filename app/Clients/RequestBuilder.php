@@ -9,7 +9,9 @@ class RequestBuilder
     public function __construct(
         protected string $resourcePath,
         protected string $method,
-        protected array $headers = [],
+        protected array  $headers = [],
+        protected array  $body = [],
+        protected bool   $bodyAsQuery = false,
     )
     {
     }
@@ -20,6 +22,9 @@ class RequestBuilder
             $this->method,
             $config->getHost() . $this->resourcePath,
             $this->headers,
+            $this->bodyAsQuery
+                ? http_build_query($this->body)
+                : $this->body,
         );
     }
 }

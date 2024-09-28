@@ -2,6 +2,7 @@
 
 namespace App\Clients\Tickets;
 
+use App\Data\TicketsProvider\Requests\ReserveRequest;
 use App\Data\TicketsProvider\Responses\EventData;
 use App\Data\TicketsProvider\Responses\PlaceData;
 use App\Data\TicketsProvider\Responses\ReserveData;
@@ -25,5 +26,5 @@ interface ITickets
      */
     public function places(int $eventId): Collection;
 
-    public function reserve(int $eventId): ReserveData;
+    public function reserve(ReserveRequest $request, int $eventId): ReserveData;
 }
