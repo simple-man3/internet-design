@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/v1')->group(function () {
     Route::prefix('/ticket')->group(function () {
-        Route::post('/shows', [TicketsController::class, 'shows']);
+        Route::get('/shows', [TicketsController::class, 'shows']);
+        Route::get('/shows/{id}/events', [TicketsController::class, 'events']);
     });
 });

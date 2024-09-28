@@ -5,6 +5,7 @@ namespace App\Clients\Tickets;
 use App\Clients\Api;
 use App\Clients\Configuration;
 use App\Clients\RequestBuilder;
+use App\Data\TicketsProvider\Responses\EventsData;
 use App\Data\TicketsProvider\Responses\ReserveData;
 use App\Data\TicketsProvider\Responses\ShowsData;
 use App\Exceptions\ApiException;
@@ -44,17 +45,26 @@ class TestApiClient extends Api implements ITickets
         );
     }
 
+    /**
+     * @throws ApiException
+     */
     public function events(int $showId): Collection
     {
         return $this->send(
-            $this->getEventRequest(),
-            fn ($content) => ShowsData::collect($content['response'], Collection::class),
+            $this->getEventRequest($showId),
+            fn ($content) => EventsData::collect($content['response'], Collection::class),
         );
     }
 
-    private function getEventRequest(): RequestBuilder
+    private function getEventRequest(int $showId): RequestBuilder
     {
-        return new RequestBuilder();
+        return new RequestBuilder(
+            '/shows/' . $showId . '/events',
+            'GET',
+            [
+                'Authorization' => $this->token
+            ]
+        );
     }
 
     public function places(int $eventId): Collection

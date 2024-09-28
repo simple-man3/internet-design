@@ -19,4 +19,12 @@ final class TicketService
     {
         return $this->client->shows();
     }
+
+    /**
+     * @return Collection<ShowsData>
+     */
+    public function events(int $showId): Collection
+    {
+        return $this->client->events($showId);
+    }
 }
