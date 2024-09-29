@@ -1,0 +1,28 @@
+ShowReadonlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: Идентификатор мероприятия
+      example: 123
+
+ShowFillableProperties:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Название мероприятия
+      example: "Show #1"
+
+Show:
+  allOf:
+    - $ref: '#/ShowReadonlyProperties'
+    - $ref: '#/ShowFillableProperties'
+
+ShowsResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Show'

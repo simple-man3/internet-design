@@ -28,12 +28,11 @@ return [
                 /*
                  * File name of the generated YAML documentation file
                  */
-                'docs_yaml' => 'swagger.yaml',
+                'docs_yaml' => 'index.yaml',
 
                 /*
                  * Set this to `json` or `yaml` to determine which documentation file to use in UI
                  */
-//                'format_to_use_for_docs' => env('L5_FORMAT_TO_USE_FOR_DOCS', 'json'),
                 'format_to_use_for_docs' => env('L5_FORMAT_TO_USE_FOR_DOCS', 'yaml'),
 
                 /*
@@ -50,7 +49,7 @@ return [
             /*
              * Route for accessing parsed swagger annotations.
              */
-            'docs' => 'swagger',
+            'docs' => 'swagger/v1',
 
             /*
              * Route for Oauth2 authentication callback.

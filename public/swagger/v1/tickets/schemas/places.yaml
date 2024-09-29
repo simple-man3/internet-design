@@ -1,0 +1,70 @@
+PlaceReadonlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: Идентификатор места
+      example: 123
+
+PlaceFillableProperties:
+  type: object
+  properties:
+    x:
+      type: float
+      description: Координата X
+      example: 10
+    y:
+      type: float
+      description: Координата Y
+      example: 13
+    width:
+      type: float
+      description: Ширина
+      example: 20
+    height:
+      type: float
+      description: Высота
+      example: 20
+    is_available:
+      type: boolean
+      description: Место доступно
+      example: true
+
+Place:
+  allOf:
+    - $ref: '#/PlaceReadonlyProperties'
+    - $ref: '#/PlaceFillableProperties'
+
+PlacesResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Place'
+
+ReservePlaceRequest:
+  type: object
+  properties:
+    name:
+      type: string
+      description: Имя покупателя
+      example: "Customer"
+    places:
+      type: array
+      items:
+        type: integer
+      description: Имя покупателя
+      example: [1, 2, 3]
+
+ReserveResponse:
+  type: object
+  properties:
+    success:
+      type: boolean
+      description: Результат бронирования
+      example: true
+    reservation_id:
+      type: integer
+      description: ID резерва
+      example: 123

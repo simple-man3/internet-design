@@ -1,0 +1,77 @@
+Shows:
+  get:
+    tags:
+      - tickets
+    summary: Список мероприятий
+    description: Список мероприятий
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/shows.yaml#/ShowsResponse'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+Events:
+  get:
+    tags:
+      - tickets
+    summary: Список событий мероприятия
+    description: Список событий мероприятия
+    parameters:
+      - $ref: '../../common_parameters.yaml#/PathId'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/events.yaml#/EventsResponse'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+Places:
+  get:
+    tags:
+      - tickets
+    summary: Список мест события
+    description: Список мест события
+    parameters:
+      - $ref: '../../common_parameters.yaml#/PathId'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/places.yaml#/PlacesResponse'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'
+
+Reserve:
+  post:
+    tags:
+      - tickets
+    summary: Забронировать места события
+    description: Забронировать места события
+    parameters:
+      - $ref: '../../common_parameters.yaml#/PathId'
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './schemas/places.yaml#/ReservePlaceRequest'
+    responses:
+      "200":
+        description: Успешный ответ
+        content:
+          application/json:
+            schema:
+              $ref: './schemas/places.yaml#/ReserveResponse'
+      "400":
+        $ref: '../index.yaml#/components/responses/BadRequest'
+      "500":
+        $ref: '../index.yaml#/components/responses/ServerError'

@@ -1,0 +1,32 @@
+EventReadonlyProperties:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: Идентификатор события
+      example: 123
+
+EventFillableProperties:
+  type: object
+  properties:
+    showId:
+      type: integer
+      description: Идентификатор мероприятия
+      example: 10
+    date:
+      type: string
+      description: Дата события
+      example: "2019-08-22 20:26:38"
+
+Event:
+  allOf:
+    - $ref: '#/EventReadonlyProperties'
+    - $ref: '#/EventFillableProperties'
+
+EventsResponse:
+  type: object
+  properties:
+    data:
+      type: array
+      items:
+        $ref: '#/Event'

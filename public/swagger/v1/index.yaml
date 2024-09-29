@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: API
+  description: API documentation for tickets provider
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000
+tags:
+  - name: tickets
+    description: Билеты
+paths:
+  /api/v1/ticket/shows:
+    $ref: './tickets/paths.yaml#/Shows'
+  /api/v1/ticket/shows/{id}/events:
+    $ref: './tickets/paths.yaml#/Events'
+  /api/v1/ticket/shows/{id}/places:
+    $ref: './tickets/paths.yaml#/Places'
+  /api/v1/ticket/events/{id}/reserve:
+    $ref: './tickets/paths.yaml#/Reserve'
+
+components:
+  responses:
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: './errors.yaml#/ErrorResponse'
+
