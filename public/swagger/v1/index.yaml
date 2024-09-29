@@ -11,11 +11,11 @@ tags:
 paths:
   /api/v1/ticket/shows:
     $ref: './tickets/paths.yaml#/Shows'
-  /api/v1/ticket/shows/{id}/events:
+  /api/v1/ticket/shows/{showId}/events:
     $ref: './tickets/paths.yaml#/Events'
-  /api/v1/ticket/shows/{id}/places:
+  /api/v1/ticket/shows/{eventId}/places:
     $ref: './tickets/paths.yaml#/Places'
-  /api/v1/ticket/events/{id}/reserve:
+  /api/v1/ticket/events/{eventId}/reserve:
     $ref: './tickets/paths.yaml#/Reserve'
 
 components:
@@ -25,11 +25,11 @@ components:
       content:
         application/json:
           schema:
-            $ref: './errors.yaml#/ErrorResponse'
+            $ref: '../errors.yaml#/ErrorResponse'
     BadRequest:
       description: Bad Request
       content:
         application/json:
           schema:
-            $ref: './errors.yaml#/ErrorResponse'
+            $ref: '../errors.yaml#/ErrorResponse'
 

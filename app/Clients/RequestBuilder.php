@@ -10,7 +10,7 @@ class RequestBuilder
         protected string $resourcePath,
         protected string $method,
         protected array  $headers = [],
-        protected array  $body = [],
+        protected ?array  $body = null,
         protected bool   $bodyAsQuery = false,
     )
     {
